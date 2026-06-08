@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Maria Eduarda</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+overflow-x:hidden;
+color:white;
+background:black;
+}
+
+/* CAPA */
+.fixed-bg{
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:url('cover.webp') center center/cover no-repeat;
+
+z-index:-4;
+
+transition:1s;
+}
+
+/* FOTO DAS OUTRAS PÁGINAS */
+.page-bg{
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+z-index:-4;
+
+opacity:0;
+
+transition:1s;
+}
+
+/* ESCURECER */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,0.55);
+
+z-index:-3;
+}
+
+/* ESTRELAS */
+.stars{
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+overflow:hidden;
+
+z-index:-2;
+}
+
+.stars::before{
+content:"";
+
+position:absolute;
+
+width:2px;
+height:2px;
+
+background:white;
+
+box-shadow:
+50px 100px white,
+200px 300px white,
+400px 150px white,
+600px 500px white,
+800px 200px white,
+1000px 400px white,
+1200px 100px white,
+1400px 350px white,
+1600px 250px white,
+1800px 450px white;
+
+animation:starsMove 10s linear infinite;
+}
+
+@keyframes starsMove{
+
+from{
+transform:translateY(0);
+}
+
+to{
+transform:translateY(-100px);
+}
+
+}
+
+/* PÁGINAS */
+section{
+position:absolute;
+top:0;
+left:0;
+
+width:100%;
+height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+
+padding:20px;
+
+opacity:0;
+visibility:hidden;
+
+transform:scale(1.05);
+
+transition:
+opacity 1s ease,
+transform 1s ease;
+}
+
+.active{
+opacity:1;
+visibility:visible;
+transform:scale(1);
+}
+
+/* CONTEÚDO */
+.content{
+z-index:2;
+}
+
+.content h1{
+font-size:70px;
+
+text-shadow:
+0 0 5px #fff,
+0 0 10px #fff,
+0 0 20px #8ec5ff,
+0 0 40px #8ec5ff,
+0 0 80px #8ec5ff;
+
+animation:glow 2s infinite alternate;
+}
+
+.content p{
+margin-top:10px;
+font-size:20px;
+}
+
+/* CARDS */
+.card{
+background:rgba(0,0,0,0.5);
+
+padding:40px;
+
+border-radius:20px;
+
+max-width:700px;
+
+backdrop-filter:blur(8px);
+}
+
+/* TÍTULOS */
+.card h2{
+margin-bottom:20px;
+
+font-size:40px;
+
+text-shadow:
+0 0 5px #fff,
+0 0 10px #fff,
+0 0 20px #8ec5ff,
+0 0 40px #8ec5ff;
+
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+
+from{
+text-shadow:
+0 0 5px #fff,
+0 0 10px #8ec5ff,
+0 0 20px #8ec5ff;
+}
+
+to{
+text-shadow:
+0 0 10px #fff,
+0 0 20px #8ec5ff,
+0 0 40px #8ec5ff,
+0 0 80px #8ec5ff;
+}
+
+}
+
+.card p{
+font-size:20px;
+line-height:1.6;
+min-height:160px;
+}
+
+/* DIGITAÇÃO */
+.typing{
+color:#8ec5ff;
+
+text-shadow:
+0 0 5px #8ec5ff,
+0 0 10px #8ec5ff,
+0 0 20px #8ec5ff,
+0 0 40px #8ec5ff;
+
+border-right:2px solid #8ec5ff;
+
+animation:blink .7s infinite;
+}
+
+.finished{
+color:white;
+text-shadow:none;
+border-right:none;
+}
+
+@keyframes blink{
+
+0%{
+border-color:#8ec5ff;
+}
+
+50%{
+border-color:transparent;
+}
+
+100%{
+border-color:#8ec5ff;
+}
+
+}
+
+/* BOTÕES NEON */
+button{
+margin-top:30px;
+
+padding:15px 35px;
+
+border:2px solid #8ec5ff;
+border-radius:30px;
+
+font-size:18px;
+
+cursor:pointer;
+
+background:rgba(142,197,255,0.08);
+
+color:#8ec5ff;
+
+backdrop-filter:blur(6px);
+
+box-shadow:
+0 0 5px #8ec5ff,
+0 0 15px #8ec5ff,
+0 0 30px rgba(142,197,255,0.6);
+
+transition:0.3s;
+}
+
+button:hover{
+
+transform:scale(1.05);
+
+background:#8ec5ff;
+
+color:black;
+
+box-shadow:
+0 0 10px #8ec5ff,
+0 0 30px #8ec5ff,
+0 0 60px #8ec5ff;
+
+}
+
+/* VÍDEO */
+.video-page{
+background:black;
+z-index:10;
+}
+
+.video-page video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* ESTRELAS CADENTES */
+.shooting-star{
+position:fixed;
+
+width:2px;
+height:120px;
+
+background:linear-gradient(
+to bottom,
+white,
+transparent
+);
+
+opacity:0.8;
+
+transform:rotate(45deg);
+
+pointer-events:none;
+
+z-index:999;
+
+animation:shoot 1.5s linear forwards;
+}
+
+@keyframes shoot{
+
+from{
+transform:
+translateY(0)
+translateX(0)
+rotate(45deg);
+
+opacity:1;
+}
+
+to{
+transform:
+translateY(600px)
+translateX(600px)
+rotate(45deg);
+
+opacity:0;
+}
+
+}
+
+audio{
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- MÚSICA -->
+<audio id="bgMusic" loop>
+<source src="starstruck.mp3" type="audio/mp3">
+</audio>
+
+<!-- CAPA -->
+<div class="fixed-bg"></div>
+
+<!-- FOTO DAS OUTRAS PÁGINAS -->
+<img src="a.png" class="page-bg">
+
+<!-- ESCURECER -->
+<div class="overlay"></div>
+
+<!-- ESTRELAS -->
+<div class="stars"></div>
+
+<!-- HOME -->
+<section class="hero active" id="home">
+
+<div class="content">
+
+<h1>Maria Eduarda</h1>
+
+<p>
+Uma pequena galáxia em forma de pessoa
+</p>
+
+<button onclick="startSite()">
+entrar
+</button>
+
+</div>
+
+</section>
+
+<!-- SOBRE -->
+<section class="page" id="sobre">
+
+<div class="card">
+
+<h2>Sobre Mim</h2>
+
+<p id="textoSobre"></p>
+
+<button onclick="nextPage('laiany')">
+continuar
+</button>
+
+</div>
+
+</section>
+
+<!-- LAIANY -->
+<section class="page" id="laiany">
+
+<div class="card">
+
+<h2>Laiany</h2>
+
+<p id="textoLaiany"></p>
+
+<button onclick="nextPage('pai')">
+continuar
+</button>
+
+</div>
+
+</section>
+
+<!-- PAI -->
+<section class="page" id="pai">
+
+<div class="card">
+
+<h2>Meu Pai</h2>
+
+<p id="textoPai"></p>
+
+<button onclick="nextPage('mae')">
+continuar
+</button>
+
+</div>
+
+</section>
+
+<!-- MÃE -->
+<section class="page" id="mae">
+
+<div class="card">
+
+<h2>Minha Mãe</h2>
+
+<p id="textoMae"></p>
+
+<button onclick="showVideo()">
+final
+</button>
+
+</div>
+
+</section>
+
+<!-- VÍDEO FINAL -->
+<section class="video-page" id="videoPage">
+
+<video id="finalVideo" controls preload="none">
+
+<source src="video.mp4" type="video/mp4">
+
+</video>
+
+</section>
+
+<script>
+
+/* TEXTOS */
+const textos = {
+
+sobre:
+`Eu sou Maria Eduarda. Gosto de estudar astronomia e ouvir ariana grande.
+Fiz o site dessa forma porque a ariana diz muito sobre mim.`,
+
+laiany:
+`A Laiany não foi a primeira pessoa com quem falei quando cheguei nessa escola,
+mas é uma das únicas que eu vou levar pra minha vida.
+
+Sem as forças que ela me dá,
+eu nem sei se ainda estaria aqui construindo esse site.`,
+
+pai:
+`Meu pai é a pessoa mais importante pra mim mesmo não estando aqui.
+Eu vivo por ele. Meus momentos preferidos da vida são quando ele vem me visitar nos sonhos.`,
+
+mae:
+`Minha mãe se chama Dulcinéia.
+Ela é uma das pessoas mais importantes da minha vida e sempre me incentivou a continuar estudando.`
+
+};
+
+/* DIGITAÇÃO */
+function digitarTexto(elemento,texto){
+
+elemento.innerHTML="";
+
+elemento.classList.remove("finished");
+
+elemento.classList.add("typing");
+
+let i=0;
+
+const intervalo=setInterval(()=>{
+
+elemento.innerHTML += texto.charAt(i);
+
+i++;
+
+if(i >= texto.length){
+
+clearInterval(intervalo);
+
+elemento.classList.remove("typing");
+
+elemento.classList.add("finished");
+
+}
+
+},70);
+
+}
+
+/* COMEÇAR */
+function startSite(){
+
+const music = document.getElementById("bgMusic");
+
+music.volume = 1;
+
+music.play().catch(()=>{
+
+console.log("Autoplay bloqueado");
+
+});
+
+nextPage('sobre');
+
+}
+
+/* TROCAR PÁGINA */
+function nextPage(pageId){
+
+document.querySelectorAll("section").forEach(section=>{
+
+section.classList.remove("active");
+
+});
+
+document.getElementById(pageId).classList.add("active");
+
+/* TROCAR FOTO */
+
+if(
+pageId==="sobre" ||
+pageId==="laiany" ||
+pageId==="pai" ||
+pageId==="mae"
+){
+
+document.querySelector(".fixed-bg").style.opacity="0";
+
+document.querySelector(".page-bg").style.opacity="1";
+
+}
+
+/* DIGITAÇÃO */
+
+const ids = {
+sobre:"textoSobre",
+laiany:"textoLaiany",
+pai:"textoPai",
+mae:"textoMae"
+};
+
+if(ids[pageId]){
+
+digitarTexto(
+document.getElementById(ids[pageId]),
+textos[pageId]
+);
+
+}
+
+}
+
+/* VÍDEO FINAL */
+function showVideo(){
+
+document.querySelectorAll("section").forEach(section=>{
+
+section.classList.remove("active");
+
+});
+
+const music = document.getElementById("bgMusic");
+
+/* FADE DA MÚSICA */
+
+let volume = 1;
+
+const fadeAudio = setInterval(()=>{
+
+volume -= 0.02;
+
+music.volume = volume;
+
+if(volume <= 0.15){
+
+clearInterval(fadeAudio);
+
+}
+
+},100);
+
+/* ESCONDER FUNDO */
+
+document.querySelector(".fixed-bg").style.display="none";
+
+document.querySelector(".page-bg").style.display="none";
+
+document.querySelector(".overlay").style.display="none";
+
+document.querySelector(".stars").style.display="none";
+
+/* REMOVER ESTRELAS */
+
+document.querySelectorAll(".shooting-star").forEach(star=>{
+
+star.remove();
+
+});
+
+clearInterval(intervaloEstrelas);
+
+/* MOSTRAR VÍDEO */
+
+document.getElementById("videoPage").classList.add("active");
+
+const video = document.getElementById("finalVideo");
+
+video.currentTime = 0;
+
+video.play().catch(()=>{
+
+console.log("Autoplay do vídeo bloqueado");
+
+});
+
+/* VOLUME VOLTA AO NORMAL */
+
+video.onended = ()=>{
+
+let volume = 0.15;
+
+const aumentarVolume = setInterval(()=>{
+
+volume += 0.02;
+
+music.volume = volume;
+
+if(volume >= 1){
+
+music.volume = 1;
+
+clearInterval(aumentarVolume);
+
+}
+
+},100);
+
+};
+
+}
+
+/* ESTRELAS CADENTES */
+function criarEstrela(){
+
+const estrela=document.createElement("div");
+
+estrela.classList.add("shooting-star");
+
+estrela.style.left=
+Math.random()*window.innerWidth+"px";
+
+estrela.style.top=
+Math.random()*200+"px";
+
+document.body.appendChild(estrela);
+
+setTimeout(()=>{
+
+estrela.remove();
+
+},1500);
+
+}
+
+const intervaloEstrelas=
+setInterval(criarEstrela,3000);
+
+</script>
+
+</body>
+</html>
